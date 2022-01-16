@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>在庫確認ツール_asics</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+
+    在庫確認ファイル名：<input type="search" id="file_name" value=".xlsx"/><br /><br />
+
+    <button id="button">実行</button><br />
+    <b><textarea id="textarea" rows="12" cols="40"></textarea></b>
+
+    <script type="text/javascript" src="./eel.js"></script>
+    <script>
+      button.addEventListener("click", () => {
+
+        let file_name = document.getElementById("file_name").value.trim();
+
+        if (
+          !file_name
+        ) {
+          alert("入力していない項目があります");
+        } else {
+          document.getElementById("textarea").value = "実行しました\n\n";
+          eel.main();
+        }
+      });
+
+      eel.expose(file_name);
+      function file_name() {
+        return document.getElementById("file_name").value.trim();
+      }
+
+      eel.expose(view_log_js);
+      function view_log_js(text) {
+        document.getElementById("textarea").value += text + "\n";
+      }
+    </script>
+  </body>
+</html>

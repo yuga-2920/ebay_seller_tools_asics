@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <title>ebay出品ツール_asics</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    商品一覧URL：<input type="search" id="url" value="https://www.asics.com/jp/ja-jp/%E3%83%A1%E3%83%B3%E3%82%BA%E3%83%A9%E3%83%B3%E3%83%8B%E3%83%B3%E3%82%B0%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%BA/c/ja10201000/"/><br />
+    <label><input type="checkbox" id="kataban" value="1" onclick="checkdiv()">型番のみの抽出を行う</label><br /><br />
+
+    ページ数(,区切り)：<input type="search" id="page" value="1,1"/><br />
+    商品名で除外するワード(,区切り)：<input type="search" id="exclude_word" value=""/><br />
+    商品名に含まれるワード(,区切り)：<input type="search" id="in_word" value=""/><br />
+    商品名に追加するワード(,区切り)：<input type="search" id="add_word" value="Before,After"/><br /><br />
+
+    削除するワードのファイル(翻訳前)：<input type="search" id="delete_word_before" value="delete_word_before.csv"/><br />
+    削除するワードのファイル(翻訳後)：<input type="search" id="delete_word_after" value="delete_word_after.csv"/><br />
+    補充するワードのファイル名：<input type="search" id="fill_in_word" value="fill_in_word.csv"/><br /><br />
+
+    作成するファイル名：<input type="search" id="file_name" value=".xlsx"/><br /><br />
+
+    <button id="button">実行</button><br />
+    <b><textarea id="textarea" rows="20" cols="50"></textarea></b>
+
+    <script type="text/javascript" src="./eel.js"></script>
+    <script>
+      button.addEventListener("click", () => {
+        let url = document.getElementById("url").value.trim();
+        
+        let page = document.getElementById("page").value.trim();
+        let exclude_word = document.getElementById("exclude_word").value.trim();
+        let in_word = document.getElementById("in_word").value.trim();
+        let add_word = document.getElementById("add_word").value.trim();
+
+        let delete_word_before = document.getElementById("delete_word_before").value.trim();
+        let delete_word_after = document.getElementById("delete_word_after").value.trim();
+        let fill_in_word = document.getElementById("fill_in_word").value.trim();
+
+        let file_name = document.getElementById("file_name").value.trim();
+
+        if (
+          !url ||
+          !page ||
+          !delete_word_before ||
+          !delete_word_after ||
+          !fill_in_word ||
+          !file_name
+        ) {
+          alert("入力していない項目があります");
+        } else {
+          document.getElementById("textarea").value = "実行しました\n\n";
+          eel.main();
+        }
+      });
+
+      eel.expose(url);
+      function url() {
+        return document.getElementById("url").value.trim();
+      }
+
+      eel.expose(kataban_check);
+      function kataban_check() {
+        const kataban_element = document.getElementById("kataban");
+        return kataban_element.checked;
+      }
+
+      eel.expose(page);
+      function page() {
+        return document.getElementById("page").value.trim();
+      }
+
+      eel.expose(exclude_word);
+      function exclude_word() {
+        return document.getElementById("exclude_word").value.trim();
+      }
+
+      eel.expose(in_word);
+      function in_word() {
+        return document.getElementById("in_word").value.trim();
+      }
+
+      eel.expose(add_word);
+      function add_word() {
+        return document.getElementById("add_word").value.trim();
+      }
+
+      eel.expose(delete_word_before);
+      function delete_word_before() {
+        return document.getElementById("delete_word_before").value.trim();
+      }
+
+      eel.expose(delete_word_after);
+      function delete_word_after() {
+        return document.getElementById("delete_word_after").value.trim();
+      }
+
+      eel.expose(fill_in_word);
+      function fill_in_word() {
+        return document.getElementById("fill_in_word").value.trim();
+      }
+
+      eel.expose(file_name);
+      function file_name() {
+        return document.getElementById("file_name").value.trim();
+      }
+
+      eel.expose(view_log_js);
+      function view_log_js(text) {
+        document.getElementById("textarea").value += text + "\n";
+      }
+    </script>
+  </body>
+</html>
